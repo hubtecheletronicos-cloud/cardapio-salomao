@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1a2f5e">
+<meta name="theme-color" content="#2d4d91">
 <title>Cardápio Digital | Pizzaria Salomão</title>
 <meta name="description" content="Monte seu pedido e envie pelo WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,21 +12,21 @@
 <style>
 :root{
   --brand:#3C60AE; --brand-ink:#2c4a8f;
-  --hero:#1a2f5e; --hero-ink:#ffffff;
+  --hero:#2d4d91; --hero-ink:#ffffff;
   --mustard:#F5B82E; --mustard-ink:#2a1d00;
   --red:#c8402f;
   --bg:#f5f6fa; --card:#ffffff; --ink:#18203a; --muted:#5b6482; --line:#dfe3ee;
-  --ok:#157a4b; --err:#b3261e;
+  --ok:#157a4b; --err:#b3261e; --green-st:#14a85a; --red-st:#d92d20;
   --shadow:0 2px 10px rgba(20,35,80,.10);
 }
 @media (prefers-color-scheme:dark){
   :root{
     --brand:#7c9bea; --brand-ink:#a9bff4;
-    --hero:#1a2f5e; --hero-ink:#ffffff;
+    --hero:#2d4d91; --hero-ink:#ffffff;
     --mustard:#F5B82E; --mustard-ink:#2a1d00;
     --red:#ff7a66;
     --bg:#0f1426; --card:#192040; --ink:#eef1fb; --muted:#a4accb; --line:#2c3558;
-    --ok:#5fd39b; --err:#ff8a80;
+    --ok:#5fd39b; --err:#ff8a80; --green-st:#14a85a; --red-st:#d92d20;
     --shadow:0 2px 10px rgba(0,0,0,.4);
   }
 }
@@ -40,17 +40,33 @@ button{cursor:pointer}
 .wrap{max-width:720px;margin:0 auto;padding:0 16px}
 
 /* HERO */
-.hero{background:var(--hero);color:var(--hero-ink);padding:18px 0 0}
-.logo{display:block;width:min(92%,420px);height:auto;aspect-ratio:2/1;margin:0 auto;object-fit:cover;
-  -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 55%,transparent 100%);
-  mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 55%,transparent 100%)}
-.welcome{text-align:center;font-size:1.02rem;margin:6px auto 14px;max-width:34ch;opacity:.95}
-.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
-.badge{border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 12px;font-size:.84rem;background:rgba(255,255,255,.08)}
-.info{display:flex;flex-direction:column;gap:6px;align-items:center;font-size:.9rem;margin-bottom:16px;text-align:center}
-.info a{color:var(--mustard);font-weight:700;text-decoration:none;border-bottom:1px solid currentColor}
-.promos{background:var(--mustard);color:var(--mustard-ink);padding:10px 0}
-.promos ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px;text-align:center;font-weight:700;font-size:.92rem}
+.hero{background:var(--hero);color:var(--hero-ink);padding:10px 0 0}
+.hrow{display:flex;align-items:center;gap:6px}
+.logo{flex:0 0 40%;width:40%;max-width:165px;height:auto;aspect-ratio:1976/1842;object-fit:cover;display:block;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent),linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+  mask-composite:intersect}
+.hside{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.welcome{margin:0;font-size:.82rem;line-height:1.3;opacity:.92}
+.status{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:6px 14px 6px 10px;color:#fff;font-weight:700;line-height:1.1;background:var(--red-st)}
+.status .dot{width:12px;height:12px;border-radius:50%;background:#fff;flex:0 0 12px}
+.status b{display:block;font-size:.88rem;letter-spacing:.04em;text-transform:uppercase}
+.status small{display:block;font-size:.72rem;font-weight:500;opacity:.95}
+.status.open{background:var(--green-st)}
+.status.closed{background:var(--red-st)}
+.status.open{animation:pulseG 1.4s ease-in-out infinite}
+.status.closed{animation:pulseR 1.4s ease-in-out infinite}
+.status.open .dot,.status.closed .dot{animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes pulseG{0%,100%{box-shadow:0 0 0 0 rgba(30,190,100,.65)}50%{box-shadow:0 0 0 7px rgba(30,190,100,0)}}
+@keyframes pulseR{0%,100%{box-shadow:0 0 0 0 rgba(230,50,40,.7)}50%{box-shadow:0 0 0 7px rgba(230,50,40,0)}}
+@media (prefers-reduced-motion:reduce){.status,.status .dot{animation:none!important}}
+.badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;padding:8px 0 10px}
+.badge{border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:3px 10px;font-size:.74rem;background:rgba(255,255,255,.08);max-width:100%;color:inherit;text-decoration:none}
+a.badge{color:var(--mustard);font-weight:700}
+.promos{background:var(--mustard);color:var(--mustard-ink);padding:7px 0}
+.promos ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;text-align:center;font-weight:700;font-size:.85rem}
 
 /* BARRA FIXA */
 .bar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0 8px}
@@ -127,10 +143,14 @@ button{cursor:pointer}
 
 <header class="hero">
   <div class="wrap">
-    <img class="logo" id="logo" src="logo.jpg" alt="Logo da loja" width="960" height="480">
-    <p class="welcome" id="welcome"></p>
+    <div class="hrow">
+      <img class="logo" id="logo" src="logo.jpg" alt="Logo da loja" width="1976" height="1842">
+      <div class="hside">
+        <div class="status closed" id="status" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span><b id="stTxt">Loja fechada</b><small id="stSub"></small></span></div>
+        <p class="welcome" id="welcome"></p>
+      </div>
+    </div>
     <div class="badges" id="badges"></div>
-    <div class="info" id="info"></div>
   </div>
   <div class="promos" id="promosBox"><div class="wrap"><ul id="promos"></ul></div></div>
 </header>
@@ -224,19 +244,51 @@ function renderHead(){
   $('logo').alt='Logo '+LOJA.nome;
   $('welcome').textContent=LOJA.boasVindas||'';
   var b=$('badges');b.textContent='';
-  if(LOJA.nota){b.appendChild(el('span','badge','Nota '+String(LOJA.nota).replace('.',',')+' no Google'+(LOJA.avaliacoes?' ('+LOJA.avaliacoes+' avaliações)':'')))}
+  if(LOJA.nota){b.appendChild(el('span','badge','Nota '+String(LOJA.nota).replace('.',',')+' no Google'+(LOJA.avaliacoes?' ('+LOJA.avaliacoes+')':'')))}
   if(LOJA.horario)b.appendChild(el('span','badge',LOJA.horario));
   if(LOJA.entrega)b.appendChild(el('span','badge',LOJA.entrega));
-  var i=$('info');i.textContent='';
-  if(LOJA.endereco)i.appendChild(el('span',null,LOJA.endereco));
+  if(LOJA.endereco)b.appendChild(el('span','badge',LOJA.endereco));
   var num=String(WHATSAPP||'').replace(/\D/g,'');
-  if(num){var a=el('a',null,'WhatsApp: '+(LOJA.telefone||num));a.href='https://wa.me/'+num;a.target='_blank';a.rel='noopener';i.appendChild(a)}
+  if(num){var a=el('a','badge','WhatsApp: '+(LOJA.telefone||num));a.href='https://wa.me/'+num;a.target='_blank';a.rel='noopener';b.appendChild(a)}
   var p=$('promos');p.textContent='';
   (PROMOS||[]).forEach(function(t){p.appendChild(el('li',null,t))});
   $('promosBox').classList.toggle('hide',!(PROMOS&&PROMOS.length));
   var f=$('foot');f.textContent='';
   (LOJA.rodape||[]).forEach(function(t){f.appendChild(el('p',null,t))});
+  renderStatus();
 }
+
+/* ---------- loja aberta/fechada (horário de Brasília) ---------- */
+function agoraSP(){
+  var dias={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+  try{
+    var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+    var o={};p.forEach(function(x){o[x.type]=x.value});
+    return {d:dias[o.weekday],m:(parseInt(o.hour,10)%24)*60+parseInt(o.minute,10)};
+  }catch(e){var n=new Date();return {d:n.getDay(),m:n.getHours()*60+n.getMinutes()}}
+}
+function hm(s){var a=String(s).split(':');return parseInt(a[0],10)*60+parseInt(a[1]||'0',10)}
+function statusLoja(){
+  if(!window.HORARIOS||HORARIOS.length!==7)return null;
+  var n=agoraSP(),hoje=HORARIOS[n.d],ontem=HORARIOS[(n.d+6)%7];
+  if(ontem){var oa=hm(ontem[0]),of=hm(ontem[1]);if(of<=oa&&n.m<of)return {aberta:true,fecha:ontem[1]}}
+  if(hoje){
+    var a=hm(hoje[0]),f=hm(hoje[1]);
+    if(f<=a){if(n.m>=a)return {aberta:true,fecha:hoje[1]}}
+    else if(n.m>=a&&n.m<f)return {aberta:true,fecha:hoje[1]};
+    if(n.m<a)return {aberta:false,abre:hoje[0],quando:'hoje'};
+  }
+  for(var i=1;i<=7;i++){var dd=HORARIOS[(n.d+i)%7];if(dd)return {aberta:false,abre:dd[0],quando:i===1?'amanhã':'em breve'}}
+  return {aberta:false};
+}
+function renderStatus(){
+  var s=statusLoja(),box=$('status');
+  if(!s){box.className='status hide';return}
+  box.className='status '+(s.aberta?'open':'closed');
+  $('stTxt').textContent=s.aberta?'Loja aberta':'Loja fechada';
+  $('stSub').textContent=s.aberta?('Fecha às '+s.fecha):(s.abre?('Abre '+s.quando+' às '+s.abre):'');
+}
+setInterval(renderStatus,30000);
 
 /* ---------- categorias e lista ---------- */
 function renderChips(){
